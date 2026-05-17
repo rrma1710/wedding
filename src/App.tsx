@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Music, 
@@ -92,6 +92,7 @@ const App = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft(WEDDING_DATE));
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -105,6 +106,22 @@ const App = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    if (isMusicPlaying) {
+      void audio.play().catch(() => {
+        setIsMusicPlaying(false);
+      });
+    } else {
+      audio.pause();
+    }
+  }, [isMusicPlaying]);
+
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
@@ -113,11 +130,14 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
+      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
         <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Elias & Clara</div>
         <button 
-          onClick={() => setIsMusicPlaying(!isMusicPlaying)}
+          onClick={() => setIsMusicPlaying((current) => !current)}
+          aria-label={isMusicPlaying ? 'Matikan musik' : 'Nyalakan musik'}
           className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
         >
           <Music size={20} className={isMusicPlaying ? "animate-pulse text-burgundy" : "text-charcoal/40"} />
