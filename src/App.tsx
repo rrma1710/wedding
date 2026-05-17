@@ -90,7 +90,7 @@ const CountdownItem = ({ label, value }: { label: string, value: number }) => (
 const App = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft(WEDDING_DATE));
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -104,6 +104,10 @@ const App = () => {
     const timer = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    setIsMusicPlaying(true);
   }, []);
 
   useEffect(() => {
@@ -130,7 +134,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
-      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/song.mp3" loop preload="auto" autoPlay playsInline />
 
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
