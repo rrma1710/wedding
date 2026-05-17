@@ -119,9 +119,7 @@ const App = () => {
     }
 
     if (isMusicPlaying) {
-      void audio.play().catch(() => {
-        setIsMusicPlaying(false);
-      });
+      void audio.play();
     } else {
       audio.pause();
     }
