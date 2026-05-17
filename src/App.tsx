@@ -64,6 +64,9 @@ const IMAGES = {
   flourish: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7dtITvrmAqSOMTrPrGvZLzesgfqRCwHVULN0ByXo0B_m5axUjmA_zEdQrjud_C1CD25hXEX21OtonwWAYHX1--_iRmQzRIvc9akw-2-HnqBuhBOBjpdrrEanbEGMuu-RVm7KAJAxs0iMWeSWPYUdIBTK6W60cBejsgmJcL8BA8-HTL30PE1n9eTIYRNdtH9CCpwOF3zZ9dEaAgIlR6TIeaTYrS5cT34okuO67YTtV_dN8x8ze2jAAJvhBwRDrf3zxC0lHh9YO-I"
 };
 
+const STREET_VIEW_URL = 'https://www.google.com/maps/embed?pb=!4v1779045813382!6m8!1m7!1syO45pioB4D_DIrt83N5yaQ!2m2!1d-7.798259013961403!2d113.33984550379!3f84.36468!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/3DTdkrnYEGEGEU2k8';
+
 // --- Helper Components ---
 
 const SectionTitle = ({ overline, title, description, icon: Icon }: any) => (
@@ -397,10 +400,31 @@ const App = () => {
             title="Finding the Way"
             description="We can't wait to see you there. For those traveling from afar, please find the digital map location below."
           />
-          <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-charcoal/10 shadow-lg">
-            <img src={IMAGES.map} alt="Map" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-sage/5 pointer-events-none"></div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="relative aspect-video w-full rounded-lg overflow-hidden border border-charcoal/10 shadow-lg bg-white"
+          >
+            <iframe
+              title="Google Maps Street View"
+              src={STREET_VIEW_URL}
+              className="w-full h-full"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-champagne/10 via-transparent to-transparent pointer-events-none"></div>
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-5 py-2 text-[10px] font-semibold tracking-[0.3em] text-burgundy shadow-lg backdrop-blur-md transition-colors hover:bg-white"
+            >
+              OPEN STREET VIEW
+            </a>
+          </motion.div>
         </div>
       </section>
 
