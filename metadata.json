@@ -1,0 +1,8 @@
+{
+  "name": "Elias & Clara Wedding",
+  "description": "A refined, minimalist digital wedding invitation and journey for Elias & Clara.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
