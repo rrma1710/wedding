@@ -161,7 +161,7 @@ const App = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
+      <motion.section id="home" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.8 }} className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.div 
             initial={{ scale: 1.1 }}
@@ -211,10 +211,10 @@ const App = () => {
         <div className="absolute bottom-10 animate-bounce text-charcoal/40">
           <ChevronDown size={32} />
         </div>
-      </section>
+      </motion.section>
 
       {/* Couple Section */}
-      <section id="couple" className="py-20 px-6 max-w-5xl mx-auto">
+      <motion.section id="couple" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }} className="py-20 px-6 max-w-5xl mx-auto">
         <SectionTitle 
           overline="Meet the Pair" 
           title="The Happy Couple"
@@ -225,7 +225,7 @@ const App = () => {
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.12 }}
             className="bg-white border border-charcoal/5 p-8 flex flex-col items-center text-center shadow-sm"
           >
             <div className="w-full aspect-[4/5] overflow-hidden mb-6 group relative">
@@ -242,7 +242,7 @@ const App = () => {
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.12 }}
             className="bg-white border border-charcoal/5 p-8 flex flex-col items-center text-center shadow-sm md:mt-24"
           >
             <div className="w-full aspect-[4/5] overflow-hidden mb-6 group relative">
@@ -256,10 +256,10 @@ const App = () => {
             </p>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Events Section */}
-      <section id="event" className="py-20 px-6 bg-surface-container-low/30 overflow-hidden">
+      <motion.section id="event" className="py-20 px-6 bg-surface-container-low/30 overflow-hidden" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <SectionTitle 
           overline="You are invited"
           title="Wedding Events"
@@ -271,21 +271,21 @@ const App = () => {
           <motion.div 
             initial={{ opacity: 0, x: -50, y: 24, scale: 0.97 }}
             whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.12 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
             <motion.div 
               initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.15, duration: 0.6 }}
               className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.15, duration: 0.6 }}
               className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"
             />
@@ -293,7 +293,7 @@ const App = () => {
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.2, duration: 0.55 }}
             >
               <Church className="text-burgundy mb-4" size={40} />
@@ -317,7 +317,7 @@ const App = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 16 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.25, duration: 0.7 }}
               whileHover={{ scale: 1.02 }}
               className="w-full h-40 overflow-hidden mb-6 rounded-sm"
@@ -334,21 +334,21 @@ const App = () => {
           <motion.div 
             initial={{ opacity: 0, x: 50, y: 24, scale: 0.97 }}
             whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.12 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
             <motion.div 
               initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"
             />
@@ -356,7 +356,7 @@ const App = () => {
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.35, duration: 0.55 }}
             >
               <PartyPopper className="text-burgundy mb-4" size={40} />
@@ -380,7 +380,7 @@ const App = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 16 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.45, duration: 0.7 }}
               whileHover={{ scale: 1.02 }}
               className="w-full h-40 overflow-hidden mb-6 rounded-sm"
@@ -426,10 +426,10 @@ const App = () => {
             </a>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Journey Gallery */}
-      <section id="gallery" className="py-20 px-6 max-w-6xl mx-auto">
+      <motion.section id="gallery" className="py-20 px-6 max-w-6xl mx-auto" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <SectionTitle 
           title="Our Journey"
           description="A collection of moments that lead us to this day. Every chapter has brought us closer."
@@ -442,8 +442,8 @@ const App = () => {
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              viewport={{ once: false, amount: 0.12 }}
+              transition={{ delay: i * 0.08, duration: 0.6 }}
               className="masonry-item group cursor-pointer"
             >
               <div className="overflow-hidden border border-charcoal/5 shadow-sm group-hover:shadow-xl transition-all duration-500">
@@ -457,10 +457,10 @@ const App = () => {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* RSVP Section */}
-      <section id="rsvp" className="py-20 px-6">
+      <motion.section id="rsvp" className="py-20 px-6" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <div className="max-w-xl mx-auto bg-white border border-charcoal/5 p-12 shadow-md relative overflow-hidden">
           <div className="absolute -top-12 -right-12 opacity-5 pointer-events-none">
             <Mail size={180} className="text-sage" />
@@ -513,7 +513,7 @@ const App = () => {
             </form>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Gifts Section (Tanda Kasih) */}
       <section id="gifts" className="py-20 px-6 max-w-4xl mx-auto">
