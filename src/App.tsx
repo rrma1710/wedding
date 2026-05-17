@@ -141,9 +141,13 @@ const App = () => {
         <button 
           onClick={() => setIsMusicPlaying((current) => !current)}
           aria-label={isMusicPlaying ? 'Matikan musik' : 'Nyalakan musik'}
-          className="p-2 rounded-full bg-white/20 hover:bg-white/40 transition-colors"
+          type="button"
+          className={`group relative grid place-items-center rounded-full border border-white/50 px-3 py-3 text-burgundy shadow-[0_12px_30px_rgba(99,13,22,0.18)] backdrop-blur-md transition-all duration-300 overflow-hidden ${isMusicPlaying ? 'bg-gradient-to-br from-white/95 via-champagne/85 to-sage/20 ring-2 ring-white/70' : 'bg-gradient-to-br from-white/70 via-white/45 to-white/20 hover:from-white/85 hover:to-sage/10'}`}
         >
-          <Music size={20} className={isMusicPlaying ? "animate-pulse text-burgundy" : "text-charcoal/40"} />
+          <span className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),transparent_55%)] opacity-90" />
+          <span className={`absolute inset-x-2 bottom-1 h-px rounded-full ${isMusicPlaying ? 'bg-burgundy/25' : 'bg-charcoal/10'}`} />
+          <Music size={20} className={`relative z-10 transition-all duration-300 ${isMusicPlaying ? 'text-burgundy drop-shadow-[0_0_10px_rgba(99,13,22,0.35)]' : 'text-charcoal/45 group-hover:text-burgundy'}`} />
+          <span className={`relative z-10 mt-1 text-[8px] font-semibold tracking-[0.25em] uppercase ${isMusicPlaying ? 'text-burgundy/70' : 'text-charcoal/45'}`}>{isMusicPlaying ? 'On' : 'Off'}</span>
         </button>
       </header>
 
