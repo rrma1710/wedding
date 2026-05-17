@@ -146,7 +146,7 @@ const App = () => {
 
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
-        <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Elias & Clara</div>
+        <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Zahra & Akbar</div>
         <button 
           onClick={() => setIsMusicPlaying((current) => !current)}
           aria-label={isMusicPlaying ? 'Matikan musik' : 'Nyalakan musik'}
@@ -194,17 +194,17 @@ const App = () => {
             <div className="h-px w-8 sm:w-12 bg-charcoal/20"></div>
           </div>
 
-          <p className="text-xl sm:text-2xl font-serif text-charcoal/80 italic mb-10">Sunday, 20 October 2025</p>
+          <p className="text-xl sm:text-2xl font-serif font-bold text-charcoal/80 italic mb-10">Minggu, 17 October 2027</p>
           
           <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
-            <CountdownItem label="Days" value={timeLeft.days} />
-            <CountdownItem label="Hours" value={timeLeft.hours} />
-            <CountdownItem label="Mins" value={timeLeft.minutes} />
-            <CountdownItem label="Secs" value={timeLeft.seconds} />
+            <CountdownItem label="Hari" value={timeLeft.days} />
+            <CountdownItem label="Jam" value={timeLeft.hours} />
+            <CountdownItem label="Menit" value={timeLeft.minutes} />
+            <CountdownItem label="Detik" value={timeLeft.seconds} />
           </div>
 
           <button className="bg-burgundy text-white px-8 py-3 tracking-widest text-xs font-semibold hover:bg-burgundy/90 transition-all uppercase shadow-lg shadow-burgundy/10">
-            Reserve Your Presence
+            KEHADIRAN
           </button>
         </div>
 
@@ -362,7 +362,7 @@ const App = () => {
               <PartyPopper className="text-burgundy mb-4" size={40} />
             </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Resepsi</h3>
-            <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Join us for a celebratory dinner as we mark the beginning of our new journey together.</p>
+            <p id="kehadiran" className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Join us for a celebratory dinner as we mark the beginning of our new journey together.</p>
 
             <div className="space-y-6 mb-8 w-full">
               <div>
@@ -620,7 +620,7 @@ const App = () => {
         </div>
         
         <p className="text-[10px] font-bold text-sage/60 tracking-[0.2em] uppercase">
-          © 2024 ELIAS & CLARA • ALL RIGHTS RESERVED
+          © 2026 ZAHRA & AKBAR • CREATED ADEN SARJANA
         </p>
       </footer>
 
