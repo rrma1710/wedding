@@ -17,7 +17,8 @@ import {
   Copy, 
   Check,
   Church,
-  PartyPopper
+  PartyPopper,
+  HomeIcon
 } from 'lucide-react';
 import song from './song.mp3';
 
@@ -64,7 +65,7 @@ const IMAGES = {
   flourish: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7dtITvrmAqSOMTrPrGvZLzesgfqRCwHVULN0ByXo0B_m5axUjmA_zEdQrjud_C1CD25hXEX21OtonwWAYHX1--_iRmQzRIvc9akw-2-HnqBuhBOBjpdrrEanbEGMuu-RVm7KAJAxs0iMWeSWPYUdIBTK6W60cBejsgmJcL8BA8-HTL30PE1n9eTIYRNdtH9CCpwOF3zZ9dEaAgIlR6TIeaTYrS5cT34okuO67YTtV_dN8x8ze2jAAJvhBwRDrf3zxC0lHh9YO-I"
 };
 
-const STREET_VIEW_URL = 'https://www.google.com/maps/embed?pb=!4v1779045813382!6m8!1m7!1syO45pioB4D_DIrt83N5yaQ!2m2!1d-7.798259013961403!2d113.33984550379!3f84.36468!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+const STREET_VIEW_URL = 'https://www.google.com/maps/embed?pb=!4v1779045813382!6m8!1m7!1syO45pioB4D_DIrt83N5yaQ!2m2!1d-7.798259013961403!2d113.33984550379!3f84.36468!4f0!5f0.7820865974627469';
 const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/3DTdkrnYEGEGEU2k8';
 
 // --- Helper Components ---
@@ -194,7 +195,7 @@ const App = () => {
             <div className="h-px w-8 sm:w-12 bg-charcoal/20"></div>
           </div>
 
-          <p className="text-xl sm:text-2xl font-serif font-bold text-charcoal/80 italic mb-10">Minggu, 17 October 2027</p>
+          <p className="text-xl sm:text-2xl font-serif text-charcoal/100 italic mb-10">Minggu, 17 October 2027</p>
           
           <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
             <CountdownItem label="Hari" value={timeLeft.days} />
@@ -325,9 +326,14 @@ const App = () => {
               <img src={IMAGES.akad} alt="Venue" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
             </motion.div>
 
-            <button className="flex items-center gap-2 border border-burgundy text-burgundy text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/5 transition-all uppercase">
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 border border-burgundy text-burgundy text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/5 transition-all uppercase"
+            >
               <MapPin size={14} /> Open Maps
-            </button>
+            </a>
           </motion.div>
 
           {/* Resepsi */}
@@ -388,9 +394,14 @@ const App = () => {
               <img src={IMAGES.resepsi} alt="Venue" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
             </motion.div>
 
-            <button className="flex items-center gap-2 bg-burgundy text-white text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase">
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 bg-burgundy text-white text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase"
+            >
               <MapPin size={14} /> Open Maps
-            </button>
+            </a>
           </motion.div>
         </div>
 
@@ -590,11 +601,11 @@ const App = () => {
         {/* Mailing Address */}
         <div className="max-w-xl mx-auto p-8 border border-dashed border-sage/40 rounded-lg text-center bg-white/50 backdrop-blur-sm">
           <SectionTitle 
-            title="Mailing Address"
+            title="Alamat"
             description="Bagi Anda yang berkeinginan untuk mengirimkan bingkisan fisik, dapat ditujukan ke alamat kediaman kami."
           />
           <div className="p-4 rounded mb-6">
-            <p className="font-semibold text-burgundy mb-2">Elias & Clara</p>
+            <p className="font-semibold text-burgundy mb-2">Zahra & Akbar</p>
             <p className="text-sm text-charcoal/70 leading-relaxed">
               Jl. Pinang Merah No. 12, Kebayoran Lama<br />
               Jakarta Selatan, 12220<br />
@@ -627,7 +638,7 @@ const App = () => {
       {/* Floating Bottom Nav */}
       <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex justify-around items-center p-2 bg-white/90 backdrop-blur-md w-[95%] max-w-lg rounded-full border border-charcoal/5 shadow-2xl">
         {[
-          { id: 'home', icon: Heart, label: 'Home' },
+          { id: 'home', icon: HomeIcon, label: 'Home' },
           { id: 'couple', icon: Heart, label: 'Couple' },
           { id: 'event', icon: Calendar, label: 'Event' },
           { id: 'gallery', icon: ImageIcon, label: 'Gallery' },
