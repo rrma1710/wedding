@@ -70,7 +70,7 @@ const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/3DTdkrnYEGEGEU2k8';
 // --- Helper Components ---
 
 const SectionTitle = ({ overline, title, description, icon: Icon }: any) => (
-  <div className="text-center mb-12 flex flex-col items-center">
+  <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 0.55 }} className="text-center mb-12 flex flex-col items-center">
     {overline && <span className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] text-sage mb-2 uppercase">{overline}</span>}
     <h2 className="text-3xl sm:text-4xl md:text-5xl text-burgundy mb-4">{title}</h2>
     <div className="ornamental-divider w-48 mb-6">
@@ -79,7 +79,7 @@ const SectionTitle = ({ overline, title, description, icon: Icon }: any) => (
       </span>
     </div>
     {description && <p className="text-charcoal/70 max-w-lg mx-auto italic">{description}</p>}
-  </div>
+  </motion.div>
 );
 
 const CountdownItem = ({ label, value }: { label: string, value: number }) => (
