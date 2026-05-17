@@ -108,6 +108,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    setActiveTab('home');
+  }, []);
+
+  useEffect(() => {
     setIsMusicPlaying(true);
   }, []);
 
@@ -260,15 +266,35 @@ const App = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Akad Nikah */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50, y: 24, scale: 0.97 }}
+            whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"></div>
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"></div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.6 }}
+              className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.6 }}
+              className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"
+            />
             
-            <Church className="text-burgundy mb-4" size={40} />
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.55 }}
+            >
+              <Church className="text-burgundy mb-4" size={40} />
+            </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Akad Nikah</h3>
             <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">The sacred marriage ceremony where we exchange our vows before God and family.</p>
             
@@ -285,9 +311,16 @@ const App = () => {
               </div>
             </div>
 
-            <div className="w-full h-40 overflow-hidden mb-6 rounded-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25, duration: 0.7 }}
+              whileHover={{ scale: 1.02 }}
+              className="w-full h-40 overflow-hidden mb-6 rounded-sm"
+            >
               <img src={IMAGES.akad} alt="Venue" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-            </div>
+            </motion.div>
 
             <button className="flex items-center gap-2 border border-burgundy text-burgundy text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/5 transition-all uppercase">
               <MapPin size={14} /> Open Maps
@@ -296,16 +329,35 @@ const App = () => {
 
           {/* Resepsi */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50, y: 24, scale: 0.97 }}
+            whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"></div>
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"></div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"
+            />
 
-            <PartyPopper className="text-burgundy mb-4" size={40} />
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35, duration: 0.55 }}
+            >
+              <PartyPopper className="text-burgundy mb-4" size={40} />
+            </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Resepsi</h3>
             <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Join us for a celebratory dinner as we mark the beginning of our new journey together.</p>
 
@@ -322,9 +374,16 @@ const App = () => {
               </div>
             </div>
 
-            <div className="w-full h-40 overflow-hidden mb-6 rounded-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.45, duration: 0.7 }}
+              whileHover={{ scale: 1.02 }}
+              className="w-full h-40 overflow-hidden mb-6 rounded-sm"
+            >
               <img src={IMAGES.resepsi} alt="Venue" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-            </div>
+            </motion.div>
 
             <button className="flex items-center gap-2 bg-burgundy text-white text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase">
               <MapPin size={14} /> Open Maps
