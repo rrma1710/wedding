@@ -19,6 +19,7 @@ import {
   Church,
   PartyPopper
 } from 'lucide-react';
+import song from './song.mp3';
 
 // --- Constants & Assets ---
 const WEDDING_DATE = new Date('2026-10-20T09:00:00');
@@ -134,7 +135,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
-      <audio ref={audioRef} src="/song.mp3" loop preload="auto" autoPlay playsInline />
+      <audio ref={audioRef} src={song} loop preload="auto" autoPlay playsInline />
 
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
@@ -173,7 +174,7 @@ const App = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             className="text-5xl sm:text-6xl md:text-8xl text-burgundy mb-6"
           >
-            Elias & Clara
+            Zahra & Akbar
           </motion.h1>
           
           <div className="flex items-center justify-center gap-4 mb-8">
