@@ -70,6 +70,7 @@ const IMAGES = {
 
 const STREET_VIEW_URL = 'https://www.google.com/maps/embed?pb=!4v1779045813382!6m8!1m7!1syO45pioB4D_DIrt83N5yaQ!2m2!1d-7.798259013961403!2d113.33984550379!3f84.36468!4f0!5f0.7820865974627469';
 const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/3DTdkrnYEGEGEU2k8';
+const NAV_SECTION_IDS = ['home', 'couple', 'event', 'gallery', 'rsvp', 'gifts'] as const;
 
 // --- Helper Components ---
 
@@ -125,6 +126,70 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    const sections = NAV_SECTION_IDS
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    if (!sections.length) {
+      return;
+    }
+
+    let isTicking = false;
+
+    const updateActiveTabByScroll = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const focusPoint = scrollY + viewportHeight * 0.2;
+
+      if (scrollY + viewportHeight >= documentHeight - 4) {
+        const lastId = sections[sections.length - 1].id;
+        setActiveTab((current) => (current === lastId ? current : lastId));
+        return;
+      }
+
+      let nextActiveId = sections[0].id;
+
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const nextSection = sections[i + 1];
+        
+        if (focusPoint >= section.offsetTop) {
+          if (!nextSection || focusPoint < nextSection.offsetTop) {
+            nextActiveId = section.id;
+            break;
+          } else {
+            nextActiveId = section.id;
+          }
+        }
+      }
+
+      setActiveTab((current) => (current === nextActiveId ? current : nextActiveId));
+    };
+
+    const onScroll = () => {
+      if (isTicking) {
+        return;
+      }
+
+      isTicking = true;
+      window.requestAnimationFrame(() => {
+        updateActiveTabByScroll();
+        isTicking = false;
+      });
+    };
+
+    updateActiveTabByScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateActiveTabByScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateActiveTabByScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     const audio = audioRef.current;
 
     if (!audio) {
@@ -145,7 +210,7 @@ const App = () => {
   };
 
   const scrollToJoinUs = () => {
-    document.getElementById('join-us')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -478,7 +543,7 @@ const App = () => {
       </motion.section>
 
       {/* RSVP Section */}
-      <motion.section id="join-us" className="py-20 px-6 scroll-mt-24" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
+      <motion.section id="rsvp" className="py-20 px-6 scroll-mt-24" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <div className="max-w-xl mx-auto bg-white border border-charcoal/5 p-12 shadow-md relative overflow-hidden">
           <div className="absolute -top-12 -right-12 opacity-5 pointer-events-none">
             <Mail size={180} className="text-sage" />
@@ -660,7 +725,6 @@ const App = () => {
           <a
             key={tab.id}
             href={`#${tab.id}`}
-            onClick={() => setActiveTab(tab.id)}
             className={`flex flex-col items-center justify-center px-2.5 py-2 rounded-full transition-all duration-300 ${activeTab === tab.id ? 'bg-burgundy/5 text-burgundy scale-110' : 'text-charcoal/40 hover:text-burgundy/60'}`}
           >
             <tab.icon size={20} fill={activeTab === tab.id ? 'currentColor' : 'none'} className={activeTab === tab.id ? 'opacity-100' : 'opacity-40'} />
