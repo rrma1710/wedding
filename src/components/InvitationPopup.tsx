@@ -120,7 +120,7 @@ export const InvitationPopup = ({
 
                         {/* Content (right column on desktop) */}
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            <div className="relative overflow-hidden rounded-t-2xl md:rounded-l-2xl h-70 sm:h-50 md:h-auto md:min-h-75">
+                            <div className="relative overflow-hidden rounded-t-2xl md:rounded-l-2xl h-55 sm:h-50 md:h-auto md:min-h-75">
                                 <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: 'easeOut' }} className="absolute inset-0 bg-cover bg-center transform-gpu" style={{ backgroundImage: `url(${bgHero})` }} />
                                 <div className="absolute inset-0 bg-linear-to-b from-transparent via-white/40 to-white/80 mix-blend-overlay" />
                             </div>
