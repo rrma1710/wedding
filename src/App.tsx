@@ -700,7 +700,7 @@ const App = () => {
         <div className="ornamental-divider w-48 mx-auto mb-8">
           <span className="text-sage/40"><Heart size={24} fill="currentColor" /></span>
         </div>
-        <h2 className="text-4xl sm:text-5xl text-burgundy mb-4">Thank You</h2>
+        <h2 className="text-4xl sm:text-5xl text-burgundy mb-4">Terima Kasih</h2>
         {/* <p className="text-lg text-charcoal/70 italic mb-12">We can't wait to share our special day with you.</p>
         
         <div className="opacity-20 mb-12">
