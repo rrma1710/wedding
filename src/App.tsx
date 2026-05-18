@@ -49,7 +49,7 @@ const calculateTimeLeft = (targetDate: Date): TimeLeft => {
 };
 
 const IMAGES = {
-  hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuBqs5zgkAdEDsDHfE7iEPHossGK23S6n6J0UzFsnFd7W6_QPOA1qKaTM06i2NLWIOU55rIh_0qNnvrzEFL9dEgPHj4Ab2oRDlEF9idNbvJFJV1HSA8JjxwGjgELpotK-5GTtIbTNbXwlgEtqn33_VWmj2CJnuZZZb0FLVx6BAHOq_vKwAWLa4jeQSlTPn9xtgFHYt8jhDzLXJ3hANbVeqlGg0oN4DBZirS7i1XDV9Af3TM6U7Ic4sWPvAHfsVa3wXTFDcp9a8gxPdU",
+  hero: "./foto/bg/bg.jpg",
   clara: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL2ONpi-z4IKBKxWakCqb8YdvULDD51HF0CrE_m-GW_6jVklloVJ0fvaynTmRzSRPu7hIfAPJfg0GCf8bkZ_PgHJhQnsXSUkULhIBuAXODNOmhPIS0o2uu8U80UQghzFAN_4tJQVJ-S_jqRsZEQItEXXFROB0BSiKxVyfgiuJK5XdRHLZ3Ak5EiVF0K4g3mcpTsHAH0Hw0hWC0eKsHwBbceXn2TcajvmrAsCPfGGo2cxdlhGPDKgBbC7TrmrBjwaBNrQj9bNtf10U",
   elias: "https://lh3.googleusercontent.com/aida-public/AB6AXuDau4jUDgZMNKwLtQVlaaRFyMwSgUspm15kE_-j_WEBxC3ox-k5OzHvCrTt47prdUcOOvrkCQft_LHqdvu2L5pgMuUocd4OrCiG8GDa3PZCmS98GPZi_IVVIbOEegweyzpZGi3Qfii3Q_Wek7LSkZN2URbSpdZEtNqAzzLLWpiNjkbCYEOtA8xWpo4ui9oipQZc4LuIiyueQ0c_N4HAUXCNTEqKYqfrHGIEpUi_J7GcyWc3jWa2egAxVOm2kkj3eSY1-qj0fK5Raas",
   journey: [
