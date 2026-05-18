@@ -5,23 +5,25 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Music, 
-  Heart, 
-  Calendar, 
-  Image as ImageIcon, 
-  Mail, 
-  MapPin, 
-  Gift, 
-  ChevronDown, 
-  Copy, 
+import {
+  Music,
+  Heart,
+  Calendar,
+  Image as ImageIcon,
+  Mail,
+  MapPin,
+  Gift,
+  ChevronDown,
+  Copy,
   Check,
   Church,
   PartyPopper,
-  HomeIcon,
-  Bold
+  HomeIcon
 } from 'lucide-react';
 import song from './song.mp3';
+import bgHero from './foto/bg/bg.jpg';
+import fotoAkbar from './foto/assets/f_akbar.jpg';
+import fotoZahra from './foto/assets/f_zahra.jpg';
 
 // --- Constants & Assets ---
 const WEDDING_DATE = new Date('2026-10-20T09:00:00');
@@ -49,9 +51,9 @@ const calculateTimeLeft = (targetDate: Date): TimeLeft => {
 };
 
 const IMAGES = {
-  hero: "./foto/bg/bg.jpg",
-  clara: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL2ONpi-z4IKBKxWakCqb8YdvULDD51HF0CrE_m-GW_6jVklloVJ0fvaynTmRzSRPu7hIfAPJfg0GCf8bkZ_PgHJhQnsXSUkULhIBuAXODNOmhPIS0o2uu8U80UQghzFAN_4tJQVJ-S_jqRsZEQItEXXFROB0BSiKxVyfgiuJK5XdRHLZ3Ak5EiVF0K4g3mcpTsHAH0Hw0hWC0eKsHwBbceXn2TcajvmrAsCPfGGo2cxdlhGPDKgBbC7TrmrBjwaBNrQj9bNtf10U",
-  elias: "https://lh3.googleusercontent.com/aida-public/AB6AXuDau4jUDgZMNKwLtQVlaaRFyMwSgUspm15kE_-j_WEBxC3ox-k5OzHvCrTt47prdUcOOvrkCQft_LHqdvu2L5pgMuUocd4OrCiG8GDa3PZCmS98GPZi_IVVIbOEegweyzpZGi3Qfii3Q_Wek7LSkZN2URbSpdZEtNqAzzLLWpiNjkbCYEOtA8xWpo4ui9oipQZc4LuIiyueQ0c_N4HAUXCNTEqKYqfrHGIEpUi_J7GcyWc3jWa2egAxVOm2kkj3eSY1-qj0fK5Raas",
+  hero: bgHero,
+  clara: fotoZahra,
+  elias: fotoAkbar,
   journey: [
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDM3zBHjDuhOXGEU0yr5fUc1FnGnpebYRYo0WTW32QYuf99DcKh8kby9x3N1QaG7ih5Y1jkjOeP68dHamyM1MI4ez1arD6po7USJ8vRRjW4oURLK9In4rKopyNQk7I5jt9S3MHbpJ6Jg6O5M50irHifE6kxlZqNGcNlH1fh_HXz79ahsU7OeZ_eet6P0HeAv3Lkq_n912-RC3JsnHr8tcXfhA1dCuulr5ZOzFeZv3jfPZmd-iB20JQlXGNHPZcUCWlt1QlTWJbxm08",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBadBzr_19WoT6CcJskQ4hhNbQu_2t_7ADEqzIinJ6hsCphI12tVmri9bScSCrCKuv4nHqoiL24WHMpIEhXWDPSIlJE9WkaH4aR8s0-VRKHMDPnhtBIc0dqrXJL-c_RfCkvgqZ3z1XvwUT3xlIVSYtFhtfod3ZS0GgJehp2UG2-aSe12lQddB6pv--khOlY0sQU1IMBYPmxxNpmJPmtlWgBt3ambYjBQXe3SWGmLnNvt1FTeFPVO17fkYYCe7jkd4PCUajRV-uVqBM",
@@ -153,7 +155,7 @@ const App = () => {
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
         <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Zahra & Akbar</div>
-        <button 
+        <button
           onClick={() => setIsMusicPlaying((current) => !current)}
           aria-label={isMusicPlaying ? 'Matikan musik' : 'Nyalakan musik'}
           type="button"
@@ -169,31 +171,31 @@ const App = () => {
       {/* Hero Section */}
       <motion.section id="home" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.8 }} className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <motion.div 
+          <motion.div
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5 }}
-            className="w-full h-full bg-cover bg-center opacity-40 grayscale-[20%]" 
+            className="w-full h-full bg-cover bg-center opacity-40 grayscale-[20%]"
             style={{ backgroundImage: `url(${IMAGES.hero})` }}
           />
         </div>
-        
+
         <div className="relative z-10 max-w-2xl">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-charcoal/60 mb-4 uppercase"
           >
             Pernikahan
           </motion.p>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             className="text-5xl sm:text-6xl md:text-8xl text-burgundy mb-6"
           >
             Zahra & Akbar
           </motion.h1>
-          
+
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="h-px w-8 sm:w-12 bg-charcoal/20"></div>
             <Heart size={20} className="text-sage" fill="currentColor" />
@@ -201,7 +203,7 @@ const App = () => {
           </div>
 
           <p className="text-xl sm:text-2xl font-serif text-charcoal/100 italic mb-10">Minggu, 17 Oktober 2027</p>
-          
+
           <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
             <CountdownItem label="Hari" value={timeLeft.days} />
             <CountdownItem label="Jam" value={timeLeft.hours} />
@@ -221,14 +223,14 @@ const App = () => {
 
       {/* Couple Section */}
       <motion.section id="couple" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }} className="py-20 px-6 max-w-5xl mx-auto">
-        <SectionTitle 
-          overline="Bertemu Pasangan" 
+        <SectionTitle
+          overline="Bertemu Pasangan"
           title="Pasangan Bahagia"
           description="Dua jiwa dengan satu pemikiran, dua hati yang berdetak sebagai satu."
         />
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.12 }}
@@ -245,7 +247,7 @@ const App = () => {
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.12 }}
@@ -266,7 +268,7 @@ const App = () => {
 
       {/* Events Section */}
       <motion.section id="event" className="py-20 px-6 bg-surface-container-low/30 overflow-hidden" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
-        <SectionTitle 
+        <SectionTitle
           overline="Anda Diundang"
           title="Acara Pernikahan"
           icon={Calendar}
@@ -274,28 +276,28 @@ const App = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Akad Nikah */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50, y: 24, scale: 0.97 }}
             whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.12 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.15, duration: 0.6 }}
               className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.15, duration: 0.6 }}
               className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-sage m-4"
             />
-            
+
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -306,11 +308,11 @@ const App = () => {
             </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Akad Nikah</h3>
             <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Tempat di mana kami bertukar janji pernikahan di hadapan Allah SWT dan Keluarga.</p>
-            
+
             <div className="space-y-6 mb-8 w-full">
               <div>
                 <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">TANGGAL & WAKTU</span>
-                <p className="font-semibold">Sabtu, 12 Agustus 2024</p>
+                <p className="font-semibold">Sabtu, 17 Oktober 2026</p>
                 <p className="text-sm">08:00 AM – 10:00 AM</p>
               </div>
               <div>
@@ -342,21 +344,21 @@ const App = () => {
           </motion.div>
 
           {/* Resepsi */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50, y: 24, scale: 0.97 }}
             whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.12 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
             className="bg-white p-8 border border-charcoal/5 shadow-md flex flex-col items-center text-center relative overflow-hidden"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: false, amount: 0.12 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="absolute top-0 left-0 w-12 h-12 border-t border-l border-sage m-4"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: false, amount: 0.12 }}
@@ -378,7 +380,7 @@ const App = () => {
             <div className="space-y-6 mb-8 w-full">
               <div>
                 <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">TANGGAL & WAKTU</span>
-                <p className="font-semibold">Sabtu, 12 Agustus 2024</p>
+                <p className="font-semibold">Sabtu, 17 Oktober 2026</p>
                 <p className="text-sm">06:00 PM – 09:00 PM</p>
               </div>
               <div>
@@ -412,7 +414,7 @@ const App = () => {
 
         {/* Map Section */}
         <div className="mt-20 max-w-4xl mx-auto text-center">
-          <SectionTitle 
+          <SectionTitle
             title="Lokasi"
             description="Kami tidak sabar menanti kehadiran Anda. Bagi yang bepergian dari jauh, silakan lihat lokasi peta digital di bawah ini."
           />
@@ -446,15 +448,15 @@ const App = () => {
 
       {/* Journey Gallery */}
       <motion.section id="gallery" className="py-20 px-6 max-w-6xl mx-auto" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
-        <SectionTitle 
+        <SectionTitle
           title="Perjalanan Kami"
           description="Koleksi momen-momen yang membawa kami ke hari istimewa ini. Setiap bab telah membuat kami semakin dekat."
           icon={ImageIcon}
         />
-        
+
         <div className="masonry-grid mt-12">
           {IMAGES.journey.map((src, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -481,7 +483,7 @@ const App = () => {
           <div className="absolute -top-12 -right-12 opacity-5 pointer-events-none">
             <Mail size={180} className="text-sage" />
           </div>
-          
+
           <div className="relative z-10">
             <div className="text-center mb-10">
               <h2 className="text-3xl text-burgundy mb-2 italic">Kehadiran</h2>
@@ -491,8 +493,8 @@ const App = () => {
             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
               <div>
                 <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">Nama Lengkap</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Isi dengan nama lengkap Anda..."
                   className="w-full bg-transparent border-b border-charcoal/20 py-2 focus:border-burgundy focus:ring-0 transition-colors placeholder:text-charcoal/20"
                 />
@@ -514,7 +516,7 @@ const App = () => {
 
               <div>
                 <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">Catatan untuk Pasangan</label>
-                <textarea 
+                <textarea
                   rows={4}
                   placeholder="Tulis pesan, harapan, atau doa restu untuk kami di sini..."
                   className="w-full bg-transparent border-b border-charcoal/20 py-2 focus:border-burgundy focus:ring-0 transition-colors placeholder:text-charcoal/20 resize-none"
@@ -533,7 +535,7 @@ const App = () => {
 
       {/* Gifts Section (Tanda Kasih) */}
       <section id="gifts" className="py-20 px-6 max-w-4xl mx-auto">
-        <SectionTitle 
+        <SectionTitle
           title="Tanda Kasih"
           description="Doa restu Anda merupakan karunia terindah bagi kami. Namun, apabila Anda ingin memberikan tanda kasih kepada kami, berikut adalah sarana yang kami sediakan."
           icon={Gift}
@@ -556,7 +558,7 @@ const App = () => {
                 <p className="text-[8px] font-bold text-charcoal/40 tracking-widest uppercase mb-1">ACCOUNT NUMBER</p>
                 <div className="flex items-center gap-4">
                   <span className="text-xl tracking-widest">1234 5678 90</span>
-                  <button 
+                  <button
                     onClick={() => copyToClipboard('1234567890', 'bca')}
                     className="p-1.5 rounded-full border border-charcoal/10 hover:bg-charcoal/5 transition-all"
                   >
@@ -587,7 +589,7 @@ const App = () => {
                 <p className="text-[8px] font-bold text-charcoal/40 tracking-widest uppercase mb-1">ACCOUNT NUMBER</p>
                 <div className="flex items-center gap-4">
                   <span className="text-xl tracking-widest">9876 5432 10</span>
-                  <button 
+                  <button
                     onClick={() => copyToClipboard('9876543210', 'mandiri')}
                     className="p-1.5 rounded-full border border-charcoal/10 hover:bg-charcoal/5 transition-all"
                   >
@@ -605,16 +607,16 @@ const App = () => {
 
         {/* Mailing Address */}
         <div className="max-w-xl mx-auto p-8 border border-dashed border-sage/40 rounded-lg text-center bg-white/50 backdrop-blur-sm">
-          <SectionTitle 
+          <SectionTitle
             title="Alamat"
             description="Bagi Anda yang berkeinginan untuk mengirimkan bingkisan fisik, dapat ditujukan ke alamat kediaman kami."
           />
           <div className="p-4 rounded mb-6">
             <p className="font-semibold text-burgundy mb-2">Zahra & Akbar</p>
             <p className="text-sm text-charcoal/70 leading-relaxed">
-              Jl. Pinang Merah No. 12, Kebayoran Lama<br />
-              Jakarta Selatan, 12220<br />
-              DKI Jakarta
+              Rawa, Wonorejo <br />
+              Kec. Maron, Kabupaten Probolinggo <br />
+              Jawa Timur
             </p>
           </div>
           <button className="flex items-center gap-2 mx-auto bg-burgundy text-white text-[10px] px-8 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase rounded-full">
@@ -634,7 +636,7 @@ const App = () => {
         <div className="opacity-20 mb-12">
           <img src={IMAGES.flourish} alt="Flourish" className="w-16 h-16 mx-auto grayscale" />
         </div> */}
-        
+
         <p className="text-[10px] font-bold text-sage/60 tracking-[0.2em] uppercase">
           © 2026 ZAHRA & AKBAR • DIBUAT OLEH <span style={{ fontWeight: 'bold' }}> R. ROJAB MAULANA AKBAR</span>
         </p>
