@@ -101,6 +101,7 @@ const App = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft(WEDDING_DATE));
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -123,6 +124,50 @@ const App = () => {
 
   useEffect(() => {
     setIsMusicPlaying(true);
+  }, []);
+
+  // Restore prior permission if user previously allowed music
+  useEffect(() => {
+    try {
+      const allowed = localStorage.getItem('musicAllowed') === '1';
+      if (allowed) {
+        setHasUserInteracted(true);
+        const audio = audioRef.current;
+        if (audio) {
+          audio.muted = false;
+          void audio.play().catch(() => {
+            // ignore
+          });
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
+  // Unmute audio on any user interaction
+  useEffect(() => {
+    if (hasUserInteracted) {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.muted = false;
+      }
+    }
+  }, [hasUserInteracted]);
+
+  // Listen for user interaction to unmute
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      setHasUserInteracted(true);
+    };
+
+    document.addEventListener('click', handleUserInteraction, { once: true });
+    document.addEventListener('touchstart', handleUserInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+    };
   }, []);
 
   useEffect(() => {
@@ -207,61 +252,6 @@ const App = () => {
     }
   }, [isMusicPlaying]);
 
-  // Unmute audio on first user interaction
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    let unmuteAttempts = 0;
-    const maxAttempts = 10;
-
-    const tryUnmute = () => {
-      if (unmuteAttempts >= maxAttempts) return;
-      unmuteAttempts++;
-      
-      try {
-        audio.muted = false;
-        // Try to play as well
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Autoplay might be blocked, but unmute should still work
-          });
-        }
-      } catch (e) {
-        // Ignore errors
-      }
-    };
-
-    // Immediate attempt
-    tryUnmute();
-
-    // Retry after short delays
-    const timeout1 = setTimeout(tryUnmute, 50);
-    const timeout2 = setTimeout(tryUnmute, 100);
-    const timeout3 = setTimeout(tryUnmute, 200);
-    const timeout4 = setTimeout(tryUnmute, 500);
-
-    // On any user interaction
-    const unmuteAudio = () => {
-      tryUnmute();
-    };
-
-    document.addEventListener('click', unmuteAudio);
-    document.addEventListener('touchstart', unmuteAudio);
-    document.addEventListener('keydown', unmuteAudio);
-
-    return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
-      clearTimeout(timeout3);
-      clearTimeout(timeout4);
-      document.removeEventListener('click', unmuteAudio);
-      document.removeEventListener('touchstart', unmuteAudio);
-      document.removeEventListener('keydown', unmuteAudio);
-    };
-  }, []);
-
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
@@ -274,9 +264,49 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
+      {/* Audio element (kept muted until user allows) */}
       <audio ref={audioRef} src={song} loop preload="auto" autoPlay muted playsInline />
 
-      {/* Top Navbar */}
+      {/* Fullscreen Play overlay (fallback to ensure unmute) */}
+      <AnimatePresence>
+        {!hasUserInteracted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 grid place-items-center bg-black/60"
+          >
+            <motion.button
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => {
+                const audio = audioRef.current;
+                if (audio) {
+                  audio.muted = false;
+                  void audio.play().catch(() => {
+                    /* ignore */
+                  });
+                }
+                try {
+                  localStorage.setItem('musicAllowed', '1');
+                } catch (e) {
+                  /* ignore */
+                }
+                setHasUserInteracted(true);
+                setIsMusicPlaying(true);
+              }}
+              className="flex flex-col items-center gap-3 bg-white/95 text-burgundy rounded-full px-8 py-6 shadow-lg"
+              aria-label="Putar musik"
+            >
+              <Music size={36} />
+              <span className="font-semibold">Putar Musik</span>
+              <span className="text-xs text-charcoal/60">Klik untuk mendengarkan</span>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
         <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Zahra & Akbar</div>
         <button
