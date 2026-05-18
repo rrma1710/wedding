@@ -18,7 +18,8 @@ import {
   Check,
   Church,
   PartyPopper,
-  HomeIcon
+  HomeIcon,
+  Bold
 } from 'lucide-react';
 import song from './song.mp3';
 
@@ -141,6 +142,10 @@ const App = () => {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const scrollToJoinUs = () => {
+    document.getElementById('join-us')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
       <audio ref={audioRef} src={song} loop preload="auto" autoPlay playsInline />
@@ -179,7 +184,7 @@ const App = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-charcoal/60 mb-4 uppercase"
           >
-            Save Our Date
+            Pernikahan
           </motion.p>
           <motion.h1 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -195,7 +200,7 @@ const App = () => {
             <div className="h-px w-8 sm:w-12 bg-charcoal/20"></div>
           </div>
 
-          <p className="text-xl sm:text-2xl font-serif text-charcoal/100 italic mb-10">Minggu, 17 October 2027</p>
+          <p className="text-xl sm:text-2xl font-serif text-charcoal/100 italic mb-10">Minggu, 17 Oktober 2027</p>
           
           <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
             <CountdownItem label="Hari" value={timeLeft.days} />
@@ -204,7 +209,7 @@ const App = () => {
             <CountdownItem label="Detik" value={timeLeft.seconds} />
           </div>
 
-          <button className="bg-burgundy text-white px-8 py-3 tracking-widest text-xs font-semibold hover:bg-burgundy/90 transition-all uppercase shadow-lg shadow-burgundy/10">
+          <button type="button" onClick={scrollToJoinUs} className="bg-burgundy text-white px-8 py-3 tracking-widest text-xs font-semibold hover:bg-burgundy/90 transition-all uppercase shadow-lg shadow-burgundy/10">
             KEHADIRAN
           </button>
         </div>
@@ -217,9 +222,9 @@ const App = () => {
       {/* Couple Section */}
       <motion.section id="couple" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }} className="py-20 px-6 max-w-5xl mx-auto">
         <SectionTitle 
-          overline="Meet the Pair" 
-          title="The Happy Couple"
-          description="Two souls with but a single thought, two hearts that beat as one."
+          overline="Bertemu Pasangan" 
+          title="Pasangan Bahagia"
+          description="Dua jiwa dengan satu pemikiran, dua hati yang berdetak sebagai satu."
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -262,8 +267,8 @@ const App = () => {
       {/* Events Section */}
       <motion.section id="event" className="py-20 px-6 bg-surface-container-low/30 overflow-hidden" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <SectionTitle 
-          overline="You are invited"
-          title="Wedding Events"
+          overline="Anda Diundang"
+          title="Acara Pernikahan"
           icon={Calendar}
         />
 
@@ -300,16 +305,16 @@ const App = () => {
               <Church className="text-burgundy mb-4" size={40} />
             </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Akad Nikah</h3>
-            <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">The sacred marriage ceremony where we exchange our vows before God and family.</p>
+            <p className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Tempat di mana kami bertukar janji pernikahan di hadapan Allah SWT dan Keluarga.</p>
             
             <div className="space-y-6 mb-8 w-full">
               <div>
-                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">DATE & TIME</span>
-                <p className="font-semibold">Saturday, 12 August 2024</p>
+                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">TANGGAL & WAKTU</span>
+                <p className="font-semibold">Sabtu, 12 Agustus 2024</p>
                 <p className="text-sm">08:00 AM – 10:00 AM</p>
               </div>
               <div>
-                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">LOCATION</span>
+                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">LOKASI</span>
                 <p className="font-semibold">Grand Ballroom, Amanjiwo</p>
                 <p className="text-xs text-charcoal/60 px-4">Majaksingi, Borobudur, Magelang, Central Java</p>
               </div>
@@ -332,7 +337,7 @@ const App = () => {
               rel="noreferrer"
               className="flex items-center gap-2 border border-burgundy text-burgundy text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/5 transition-all uppercase"
             >
-              <MapPin size={14} /> Open Maps
+              <MapPin size={14} /> Buka Maps
             </a>
           </motion.div>
 
@@ -368,16 +373,16 @@ const App = () => {
               <PartyPopper className="text-burgundy mb-4" size={40} />
             </motion.div>
             <h3 className="text-2xl text-burgundy mb-4 italic">Resepsi</h3>
-            <p id="kehadiran" className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Join us for a celebratory dinner as we mark the beginning of our new journey together.</p>
+            <p id="kehadiran" className="text-sm text-charcoal/60 mb-8 max-w-xs italic">Bergabunglah dengan kami untuk makan malam perayaan saat kami merayakan awal perjalanan baru kami bersama.</p>
 
             <div className="space-y-6 mb-8 w-full">
               <div>
-                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">DATE & TIME</span>
-                <p className="font-semibold">Saturday, 12 August 2024</p>
+                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">TANGGAL & WAKTU</span>
+                <p className="font-semibold">Sabtu, 12 Agustus 2024</p>
                 <p className="text-sm">06:00 PM – 09:00 PM</p>
               </div>
               <div>
-                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">LOCATION</span>
+                <span className="text-[10px] font-semibold text-sage tracking-widest block mb-1">LOKASI</span>
                 <p className="font-semibold">The Terrace, Amanjiwo</p>
                 <p className="text-xs text-charcoal/60 px-4">Majaksingi, Borobudur, Magelang, Central Java</p>
               </div>
@@ -400,7 +405,7 @@ const App = () => {
               rel="noreferrer"
               className="flex items-center gap-2 bg-burgundy text-white text-[10px] px-6 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase"
             >
-              <MapPin size={14} /> Open Maps
+              <MapPin size={14} /> Buka Maps
             </a>
           </motion.div>
         </div>
@@ -408,8 +413,8 @@ const App = () => {
         {/* Map Section */}
         <div className="mt-20 max-w-4xl mx-auto text-center">
           <SectionTitle 
-            title="Finding the Way"
-            description="We can't wait to see you there. For those traveling from afar, please find the digital map location below."
+            title="Lokasi"
+            description="Kami tidak sabar menanti kehadiran Anda. Bagi yang bepergian dari jauh, silakan lihat lokasi peta digital di bawah ini."
           />
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -433,7 +438,7 @@ const App = () => {
               rel="noreferrer"
               className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-5 py-2 text-[10px] font-semibold tracking-[0.3em] text-burgundy shadow-lg backdrop-blur-md transition-colors hover:bg-white"
             >
-              OPEN STREET VIEW
+              BUKA STREET VIEW
             </a>
           </motion.div>
         </div>
@@ -442,8 +447,8 @@ const App = () => {
       {/* Journey Gallery */}
       <motion.section id="gallery" className="py-20 px-6 max-w-6xl mx-auto" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <SectionTitle 
-          title="Our Journey"
-          description="A collection of moments that lead us to this day. Every chapter has brought us closer."
+          title="Perjalanan Kami"
+          description="Koleksi momen-momen yang membawa kami ke hari istimewa ini. Setiap bab telah membuat kami semakin dekat."
           icon={ImageIcon}
         />
         
@@ -461,7 +466,7 @@ const App = () => {
                 <img src={src} alt="Journey" className="w-full grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 <div className="p-4 bg-white">
                   <p className="text-[10px] font-bold tracking-widest text-sage uppercase">
-                    {["Provence, 2022", "Intertwined", "The Proposal", "Quiet Moments", "Spring Vibes", "The Celebration"][i]}
+                    {["Provence, 2022", "Terikat Hati", "Lamaran", "Momen Tenang", "Energi Musim Semi", "Perayaan"][i]}
                   </p>
                 </div>
               </div>
@@ -471,7 +476,7 @@ const App = () => {
       </motion.section>
 
       {/* RSVP Section */}
-      <motion.section id="rsvp" className="py-20 px-6" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
+      <motion.section id="join-us" className="py-20 px-6 scroll-mt-24" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.75 }}>
         <div className="max-w-xl mx-auto bg-white border border-charcoal/5 p-12 shadow-md relative overflow-hidden">
           <div className="absolute -top-12 -right-12 opacity-5 pointer-events-none">
             <Mail size={180} className="text-sage" />
@@ -479,46 +484,46 @@ const App = () => {
           
           <div className="relative z-10">
             <div className="text-center mb-10">
-              <h2 className="text-3xl text-burgundy mb-2 italic">Join Us</h2>
-              <p className="text-sm text-charcoal/60">Please kindly respond by September 15th, 2024</p>
+              <h2 className="text-3xl text-burgundy mb-2 italic">Kehadiran</h2>
+              <p className="text-sm text-charcoal/60">Silakan konfirmasi kehadiran Anda sebelum 15 September 2026</p>
             </div>
 
             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
               <div>
-                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">Full Name(s)</label>
+                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">Nama Lengkap</label>
                 <input 
                   type="text" 
-                  placeholder="GUEST NAME"
+                  placeholder="Isi dengan nama lengkap Anda..."
                   className="w-full bg-transparent border-b border-charcoal/20 py-2 focus:border-burgundy focus:ring-0 transition-colors placeholder:text-charcoal/20"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-4">Will you attend?</label>
+                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-4">Kamu bisa hadir?</label>
                 <div className="flex flex-col sm:flex-row gap-6">
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <input type="radio" name="attendance" className="text-burgundy focus:ring-burgundy w-4 h-4" />
-                    <span className="text-sm text-charcoal/80 group-hover:text-burgundy transition-colors">Joyfully Accept</span>
+                    <span className="text-sm text-charcoal/80 group-hover:text-burgundy transition-colors">Ya, Saya Akan Hadir</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <input type="radio" name="attendance" className="text-burgundy focus:ring-burgundy w-4 h-4" />
-                    <span className="text-sm text-charcoal/80 group-hover:text-burgundy transition-colors">Regretfully Decline</span>
+                    <span className="text-sm text-charcoal/80 group-hover:text-burgundy transition-colors">Maaf, Tidak Bisa Hadir</span>
                   </label>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">A Note for the Couple</label>
+                <label className="block text-[10px] font-bold text-sage tracking-widest uppercase mb-2">Catatan untuk Pasangan</label>
                 <textarea 
                   rows={4}
-                  placeholder="SHARE YOUR WELL WISHES..."
+                  placeholder="Tulis pesan, harapan, atau doa restu untuk kami di sini..."
                   className="w-full bg-transparent border-b border-charcoal/20 py-2 focus:border-burgundy focus:ring-0 transition-colors placeholder:text-charcoal/20 resize-none"
                 />
               </div>
 
               <div className="text-center pt-4">
                 <button className="bg-burgundy text-white px-12 py-4 tracking-widest text-xs font-semibold hover:opacity-90 transition-all uppercase shadow-md active:scale-95">
-                  Send RSVP
+                  Kirim Surat
                 </button>
               </div>
             </form>
@@ -613,7 +618,7 @@ const App = () => {
             </p>
           </div>
           <button className="flex items-center gap-2 mx-auto bg-burgundy text-white text-[10px] px-8 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase rounded-full">
-            View on Map <MapPin size={12} />
+            Lihat Map <MapPin size={12} />
           </button>
         </div>
       </section>
@@ -624,14 +629,14 @@ const App = () => {
           <span className="text-sage/40"><Heart size={24} fill="currentColor" /></span>
         </div>
         <h2 className="text-4xl sm:text-5xl text-burgundy mb-4">Thank You</h2>
-        <p className="text-lg text-charcoal/70 italic mb-12">We can't wait to share our special day with you.</p>
+        {/* <p className="text-lg text-charcoal/70 italic mb-12">We can't wait to share our special day with you.</p>
         
         <div className="opacity-20 mb-12">
           <img src={IMAGES.flourish} alt="Flourish" className="w-16 h-16 mx-auto grayscale" />
-        </div>
+        </div> */}
         
         <p className="text-[10px] font-bold text-sage/60 tracking-[0.2em] uppercase">
-          © 2026 ZAHRA & AKBAR • CREATED ADEN SARJANA
+          © 2026 ZAHRA & AKBAR • DIBUAT OLEH <span style={{ fontWeight: 'bold' }}> R. ROJAB MAULANA AKBAR</span>
         </p>
       </footer>
 
