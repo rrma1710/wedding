@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import bgHero from '../foto/bg/bg.jpg';
 
 interface InvitationPopupProps {
   isOpen: boolean;
@@ -47,6 +48,41 @@ export const InvitationPopup = ({
     }
   }, [isOpen, onClose]);
 
+  // Close on Escape key for accessibility
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [isOpen, onClose]);
+
+  // Lock background scroll when popup is open (supports mobile & desktop)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    const prevPosition = document.body.style.position;
+    const prevTop = document.body.style.top;
+
+    // Preserve scroll position and lock
+    const scrollY = window.scrollY || window.pageYOffset;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+
+    return () => {
+      // Restore
+      document.body.style.overflow = prevOverflow || '';
+      document.body.style.position = prevPosition || '';
+      document.body.style.top = prevTop || '';
+      // restore scroll position
+      window.scrollTo(0, scrollY);
+    };
+  }, [isOpen]);
   return (
     <AnimatePresence>
       {isOpen && (
@@ -62,8 +98,8 @@ export const InvitationPopup = ({
             initial={{ scale: 0.85, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.85, opacity: 0, y: 30 }}
-            transition={{ duration: 0.5, type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative w-full max-w-2xl bg-gradient-to-b from-champagne/95 via-white/95 to-sage/5 backdrop-blur-md rounded-3xl p-0 shadow-2xl border border-white/80 overflow-hidden max-h-[90vh] overflow-y-auto"
+            transition={{ duration: 0.45, type: 'spring', stiffness: 280, damping: 28 }}
+            className="relative w-full max-w-3xl bg-linear-to-b from-champagne/95 via-white/95 to-sage/5 backdrop-blur-md rounded-2xl p-0 shadow-2xl border border-white/80 overflow-hidden max-h-[80vh]"
           >
             {/* Decorative elements */}
             <motion.div
@@ -80,119 +116,49 @@ export const InvitationPopup = ({
             />
 
             {/* Close button */}
-            <motion.button
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              onClick={onClose}
-              className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/80 backdrop-blur hover:bg-white text-burgundy transition-colors shadow-lg"
-              aria-label="Tutup"
-            >
-              <X size={24} />
-            </motion.button>
+            {/* Note: removed top-right close button to simplify UI; users can tap outside or press Escape to close */}
 
-            {/* Content */}
-            <div className="relative z-10 px-6 sm:px-10 py-12 sm:py-16 space-y-8">
-              {/* Header with animation */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="text-center space-y-4"
-              >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                  className="inline-block"
-                >
-                  <Heart size={32} className="text-burgundy fill-burgundy" />
+            {/* Content (right column on desktop) */}
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="hidden md:block relative overflow-hidden rounded-l-2xl min-h-[320px]">
+                <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 1.6, ease: 'easeOut' }} className="absolute inset-0 bg-cover bg-center transform-gpu" style={{ backgroundImage: `url(${bgHero})` }} />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white/80 mix-blend-overlay" />
+              </div>
+
+              <div className="relative z-10 px-4 sm:px-8 py-8 sm:py-10 flex flex-col justify-center">
+                {/* Header */}
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }} className="text-center">
+                  <div className="mx-auto w-full max-w-lg">
+                    <div className="flex items-center justify-center mb-2">
+                      <Heart size={28} className="text-burgundy fill-burgundy" />
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-burgundy leading-tight">Zahra & Akbar</h1>
+                    <p className="mt-1 text-[11px] sm:text-sm tracking-[0.18em] font-semibold text-charcoal/60 uppercase">Dengan hormat mengundang Anda</p>
+                  </div>
                 </motion.div>
 
-                <h1 className="text-5xl sm:text-6xl font-serif text-burgundy mb-2">
-                  Zahra & Akbar
-                </h1>
+                <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.35, duration: 0.6 }} className="h-px bg-gradient-to-r from-transparent via-burgundy/40 to-transparent my-6" />
 
-                <p className="text-sm sm:text-base tracking-[0.3em] font-semibold text-charcoal/60 uppercase">
-                  Dengan hormat mengundang Anda
-                </p>
-              </motion.div>
-
-              {/* Divider */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="h-px bg-gradient-to-r from-transparent via-burgundy/40 to-transparent"
-              />
-
-              {/* Main invitation text */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="text-center space-y-6"
-              >
-                <div className="space-y-3 text-charcoal/80">
-                  <p className="text-lg sm:text-xl italic leading-relaxed">
-                    Suatu kehormatan bagi kami untuk mempersilahkan Anda pada acara yang memperingati momen istimewa dalam hidup kami
-                  </p>
-                  
-                  <div className="pt-4 space-y-2">
-                    <p className="font-semibold text-lg text-burgundy">
-                      Pernikahan Kami
-                    </p>
-                    <p className="text-sm sm:text-base">
-                      Minggu, 17 Oktober 2027
-                    </p>
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.5 }} className="text-center px-2 sm:px-6">
+                  <p className="text-sm italic leading-relaxed text-charcoal/80 max-w-xl mx-auto">Suatu kehormatan bagi kami mengundang Anda pada momen istimewa ini.</p>
+                  <div className="mt-3">
+                    <p className="font-semibold text-md text-burgundy">Pernikahan Kami</p>
+                    <p className="text-xs sm:text-sm">Minggu, 17 Oktober 2027</p>
                   </div>
-                </div>
+                </motion.div>
 
-                {/* Decorative flourish */}
-                <div className="flex items-center justify-center gap-3 pt-4">
-                  <div className="h-px w-8 bg-charcoal/20"></div>
-                  <Heart size={16} className="text-sage fill-sage" />
-                  <div className="h-px w-8 bg-charcoal/20"></div>
-                </div>
-              </motion.div>
+                <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65, duration: 0.5 }} className="pt-6">
+                  <div className="flex items-center justify-center">
+                    <motion.button initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} whileHover={{ scale: 1.02, boxShadow: '0 18px 45px rgba(99,13,22,0.22)' }} whileTap={{ scale: 0.975 }} onClick={() => { onOpenAndPlay?.(); const audio = audioRef.current; if (audio) { audio.muted = false; void audio.play().catch(() => {}); } }} type="button" className="w-full max-w-lg bg-linear-to-r from-burgundy to-burgundy/80 text-white px-5 py-3 tracking-widest text-sm sm:text-base font-semibold transition-all uppercase rounded-xl flex items-center justify-center gap-2">
+                      <Heart size={20} fill="currentColor" />
+                      <span>Buka & Putar</span>
+                    </motion.button>
+                  </div>
+                </motion.div>
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9, duration: 0.5 }} className="text-center text-xs text-charcoal/50 pt-3 italic">Lihat detail di halaman utama</motion.p>
 
-              {/* Action buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
-                className="flex flex-col sm:flex-row gap-4 pt-4"
-              >
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    onOpenAndPlay?.();
-                    const audio = audioRef.current;
-                    if (audio) {
-                      audio.muted = false;
-                      void audio.play();
-                    }
-                  }}
-                  type="button"
-                  className="bg-linear-to-r from-burgundy to-burgundy/80 text-white px-10 py-4 tracking-widest text-sm font-semibold hover:shadow-lg transition-all uppercase shadow-lg shadow-burgundy/25 mb-6 flex items-center justify-center gap-2 rounded-lg"
-                >
-                  <Heart size={20} fill="currentColor" />
-                  Buka Undangan & Putar Musik
-                </motion.button>
-                {/* single combined action - remaining button above handles open+play+scroll */}
-              </motion.div>
-
-              {/* Footer text */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-                className="text-center text-xs sm:text-sm text-charcoal/50 pt-4 italic"
-              >
-                Scroll ke bawah untuk melihat detail lengkap acara
-              </motion.p>
+                <p className="text-center text-[11px] text-charcoal/40 mt-2">Ketuk di luar popup atau tekan <span className="font-semibold">Esc</span> untuk menutup</p>
+              </div>
             </div>
           </motion.div>
         </motion.div>
