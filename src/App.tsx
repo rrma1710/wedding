@@ -619,9 +619,14 @@ const App = () => {
               Jawa Timur
             </p>
           </div>
-          <button className="flex items-center gap-2 mx-auto bg-burgundy text-white text-[10px] px-8 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase rounded-full">
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex w-fit items-center gap-2 mx-auto bg-burgundy text-white text-[10px] px-8 py-3 tracking-widest font-semibold hover:bg-burgundy/90 transition-all uppercase rounded-full"
+          >
             Lihat Map <MapPin size={12} />
-          </button>
+          </a>
         </div>
       </section>
 
