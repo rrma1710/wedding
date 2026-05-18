@@ -150,8 +150,7 @@ export const InvitationPopup = ({
                 <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65, duration: 0.5 }} className="pt-6">
                   <div className="flex items-center justify-center">
                     <motion.button initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} whileHover={{ scale: 1.02, boxShadow: '0 18px 45px rgba(99,13,22,0.22)' }} whileTap={{ scale: 0.975 }} onClick={() => { onOpenAndPlay?.(); const audio = audioRef.current; if (audio) { audio.muted = false; void audio.play().catch(() => {}); } }} type="button" className="w-full max-w-lg bg-linear-to-r from-burgundy to-burgundy/80 text-white px-5 py-3 tracking-widest text-sm sm:text-base font-semibold transition-all uppercase rounded-xl flex items-center justify-center gap-2">
-                      <Heart size={20} fill="currentColor" />
-                      <span>Buka & Putar</span>
+                      <span>Buka Undangan</span>
                     </motion.button>
                   </div>
                 </motion.div>
