@@ -197,11 +197,70 @@ const App = () => {
     }
 
     if (isMusicPlaying) {
-      void audio.play();
+      void audio.play().catch(() => {
+        // Fallback: if unmuted autoplay fails, keep it muted
+        audio.muted = true;
+        void audio.play();
+      });
     } else {
       audio.pause();
     }
   }, [isMusicPlaying]);
+
+  // Unmute audio on first user interaction
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    let unmuteAttempts = 0;
+    const maxAttempts = 10;
+
+    const tryUnmute = () => {
+      if (unmuteAttempts >= maxAttempts) return;
+      unmuteAttempts++;
+      
+      try {
+        audio.muted = false;
+        // Try to play as well
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay might be blocked, but unmute should still work
+          });
+        }
+      } catch (e) {
+        // Ignore errors
+      }
+    };
+
+    // Immediate attempt
+    tryUnmute();
+
+    // Retry after short delays
+    const timeout1 = setTimeout(tryUnmute, 50);
+    const timeout2 = setTimeout(tryUnmute, 100);
+    const timeout3 = setTimeout(tryUnmute, 200);
+    const timeout4 = setTimeout(tryUnmute, 500);
+
+    // On any user interaction
+    const unmuteAudio = () => {
+      tryUnmute();
+    };
+
+    document.addEventListener('click', unmuteAudio);
+    document.addEventListener('touchstart', unmuteAudio);
+    document.addEventListener('keydown', unmuteAudio);
+
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      clearTimeout(timeout3);
+      clearTimeout(timeout4);
+      document.removeEventListener('click', unmuteAudio);
+      document.removeEventListener('touchstart', unmuteAudio);
+      document.removeEventListener('keydown', unmuteAudio);
+    };
+  }, []);
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -215,13 +274,19 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-24 overflow-x-hidden">
-      <audio ref={audioRef} src={song} loop preload="auto" autoPlay playsInline />
+      <audio ref={audioRef} src={song} loop preload="auto" autoPlay muted playsInline />
 
       {/* Top Navbar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
         <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Zahra & Akbar</div>
         <button
-          onClick={() => setIsMusicPlaying((current) => !current)}
+          onClick={() => {
+            const audio = audioRef.current;
+            if (audio) {
+              audio.muted = false;
+            }
+            setIsMusicPlaying((current) => !current);
+          }}
           aria-label={isMusicPlaying ? 'Matikan musik' : 'Nyalakan musik'}
           type="button"
           className={`group relative grid place-items-center rounded-full border border-white/50 px-3 py-3 text-burgundy shadow-[0_12px_30px_rgba(99,13,22,0.18)] backdrop-blur-md transition-all duration-300 overflow-hidden ${isMusicPlaying ? 'bg-gradient-to-br from-white/95 via-champagne/85 to-sage/20 ring-2 ring-white/70' : 'bg-gradient-to-br from-white/70 via-white/45 to-white/20 hover:from-white/85 hover:to-sage/10'}`}
