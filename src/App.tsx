@@ -104,6 +104,7 @@ const App = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [isInvitationOpen, setIsInvitationOpen] = useState(true);
+  const [homeAnimationTrigger, setHomeAnimationTrigger] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -117,6 +118,16 @@ const App = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  // Reset home animation trigger after animation completes
+  useEffect(() => {
+    if (homeAnimationTrigger) {
+      const timer = setTimeout(() => {
+        setHomeAnimationTrigger(false);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [homeAnimationTrigger]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -280,6 +291,8 @@ const App = () => {
         }}
         onOpenAndPlay={() => {
           setIsInvitationOpen(false);
+          setActiveTab('home');
+          setHomeAnimationTrigger(true);
           setHasUserInteracted(true);
           setIsMusicPlaying(true);
           try {
@@ -365,7 +378,14 @@ const App = () => {
       </header>
 
       {/* Hero Section */}
-      <motion.section id="home" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.12 }} transition={{ duration: 0.8 }} className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
+      <motion.section 
+        id="home" 
+        initial={homeAnimationTrigger ? { opacity: 0, scale: 0.97, y: 20 } : { opacity: 0, y: 12 }} 
+        animate={{ opacity: 1, scale: 1, y: 0 }} 
+        whileInView={!homeAnimationTrigger ? { opacity: 1, y: 0 } : undefined} 
+        viewport={{ once: false, amount: 0.12 }} 
+        transition={homeAnimationTrigger ? { duration: 0.9, type: 'spring', stiffness: 90, damping: 18 } : { duration: 0.8 }} 
+        className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -378,15 +398,19 @@ const App = () => {
 
         <div className="relative z-10 max-w-2xl">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={homeAnimationTrigger ? { opacity: 0, y: 15 } : { opacity: 0, y: 20 }}
+            animate={homeAnimationTrigger ? { opacity: 1, y: 0 } : undefined}
+            whileInView={!homeAnimationTrigger ? { opacity: 1, y: 0 } : undefined}
+            transition={homeAnimationTrigger ? { delay: 0.15, duration: 0.6 } : undefined}
             className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-charcoal/60 mb-4 uppercase"
           >
             Pernikahan
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={homeAnimationTrigger ? { opacity: 0, scale: 0.92, y: 15 } : { opacity: 0, scale: 0.95 }}
+            animate={homeAnimationTrigger ? { opacity: 1, scale: 1, y: 0 } : undefined}
+            whileInView={!homeAnimationTrigger ? { opacity: 1, scale: 1 } : undefined}
+            transition={homeAnimationTrigger ? { delay: 0.3, duration: 0.7, type: 'spring', stiffness: 100, damping: 15 } : undefined}
             className="text-5xl sm:text-6xl md:text-8xl text-burgundy mb-6"
           >
             Zahra & Akbar
@@ -400,16 +424,28 @@ const App = () => {
 
           <p className="text-xl sm:text-2xl font-serif text-charcoal/100 italic mb-10">Minggu, 17 Oktober 2027</p>
 
-          <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
+          <motion.div 
+            initial={homeAnimationTrigger ? { opacity: 0, y: 15 } : undefined}
+            animate={homeAnimationTrigger ? { opacity: 1, y: 0 } : undefined}
+            transition={homeAnimationTrigger ? { delay: 0.5, duration: 0.6 } : undefined}
+            className="grid grid-cols-4 gap-2 sm:gap-4 max-w-sm sm:max-w-md mx-auto mb-10">
             <CountdownItem label="Hari" value={timeLeft.days} />
             <CountdownItem label="Jam" value={timeLeft.hours} />
             <CountdownItem label="Menit" value={timeLeft.minutes} />
             <CountdownItem label="Detik" value={timeLeft.seconds} />
-          </div>
+          </motion.div>
 
-          <button type="button" onClick={scrollToJoinUs} className="bg-burgundy text-white px-8 py-3 tracking-widest text-xs font-semibold hover:bg-burgundy/90 transition-all uppercase shadow-lg shadow-burgundy/10">
+          <motion.button 
+            initial={homeAnimationTrigger ? { opacity: 0, y: 15 } : undefined}
+            animate={homeAnimationTrigger ? { opacity: 1, y: 0 } : undefined}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={homeAnimationTrigger ? { delay: 0.7, duration: 0.6 } : undefined}
+            type="button" 
+            onClick={scrollToJoinUs} 
+            className="bg-burgundy text-white px-8 py-3 tracking-widest text-xs font-semibold hover:bg-burgundy/90 transition-all uppercase shadow-lg shadow-burgundy/10">
             KEHADIRAN
-          </button>
+          </motion.button>
         </div>
 
         <div className="absolute bottom-10 animate-bounce text-charcoal/40">
