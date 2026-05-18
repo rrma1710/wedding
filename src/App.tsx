@@ -233,10 +233,10 @@ const App = () => {
               <img src={IMAGES.clara} alt="Clara" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
               <div className="absolute inset-0 border-[12px] border-white/10 pointer-events-none"></div>
             </div>
-            <h3 className="text-3xl text-burgundy mb-2 italic">Clara</h3>
+            <h3 className="text-3xl text-burgundy mb-2 italic">Zahra Ifakornelia</h3>
             <span className="text-[10px] font-semibold tracking-[0.3em] text-sage mb-6">THE BRIDE</span>
             <p className="text-charcoal/70 text-sm leading-relaxed max-w-xs">
-              An architect with an eye for timeless beauty, Clara finds joy in the quiet details of classical music and structural elegance. Her journey with Elias began in a small bookstore in Paris.
+              Putri dari Bpk. Nanang Ishariyanto & Ibu. Dina Siana Indri Astutik
             </p>
           </motion.div>
 
@@ -250,10 +250,10 @@ const App = () => {
               <img src={IMAGES.elias} alt="Elias" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
               <div className="absolute inset-0 border-[12px] border-white/10 pointer-events-none"></div>
             </div>
-            <h3 className="text-3xl text-burgundy mb-2 italic">Elias</h3>
+            <h3 className="text-2xl sm:text-3xl text-burgundy mb-2 italic whitespace-nowrap leading-tight">R. Rojab Maulana Akbar</h3>
             <span className="text-[10px] font-semibold tracking-[0.3em] text-sage mb-6">THE GROOM</span>
             <p className="text-charcoal/70 text-sm leading-relaxed max-w-xs">
-              A creative director and storyteller at heart, Elias believes the most beautiful things in life are shared. He is a collector of rare vinyls and captures fleeting moments through his film lens.
+              Putra dari Bpk. RB. Abdul Hadi & Ibu Husnul Hotimah
             </p>
           </motion.div>
         </div>
