@@ -20,6 +20,7 @@ import {
   PartyPopper,
   HomeIcon
 } from 'lucide-react';
+import { InvitationPopup } from './components/InvitationPopup';
 import song from './song.mp3';
 import bgHero from './foto/bg/bg.jpg';
 import fotoAkbar from './foto/assets/f_akbar.jpg';
@@ -102,6 +103,7 @@ const App = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [isInvitationOpen, setIsInvitationOpen] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -267,6 +269,35 @@ const App = () => {
       {/* Audio element (kept muted until user allows) */}
       <audio ref={audioRef} src={song} loop preload="auto" autoPlay muted playsInline />
 
+      {/* Invitation Popup */}
+      <InvitationPopup
+        isOpen={isInvitationOpen}
+        onClose={() => setIsInvitationOpen(false)}
+        audioRef={audioRef}
+        onPlayMusic={() => {
+          setHasUserInteracted(true);
+          setIsMusicPlaying(true);
+        }}
+        onOpenAndPlay={() => {
+          setIsInvitationOpen(false);
+          setHasUserInteracted(true);
+          setIsMusicPlaying(true);
+          try {
+            localStorage.setItem('musicAllowed', '1');
+          } catch (e) {
+            /* ignore */
+          }
+          const audio = audioRef.current;
+          if (audio) {
+            audio.muted = false;
+            void audio.play().catch(() => {
+              /* ignore */
+            });
+          }
+          document.getElementById('home')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }}
+      />
+
       {/* Fullscreen Play overlay (fallback to ensure unmute) */}
       <AnimatePresence>
         {!hasUserInteracted && (
@@ -308,7 +339,12 @@ const App = () => {
         )}
       </AnimatePresence>
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-gradient-to-b from-champagne/80 to-transparent backdrop-blur-[2px]">
-        <div className="text-lg sm:text-xl font-serif tracking-widest text-burgundy">Zahra & Akbar</div>
+        <button
+          onClick={() => setIsInvitationOpen(true)}
+          className="text-lg sm:text-xl font-serif tracking-widest text-burgundy hover:text-burgundy/80 transition-colors"
+        >
+          Zahra & Akbar
+        </button>
         <button
           onClick={() => {
             const audio = audioRef.current;
